@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Empleado } from 'src/app/Model/empleado';
+import { Empleado, EmpleadoReal } from 'src/app/Model/empleado';
+import { OcpEmpleadosService } from '../../servicios/ocp-empleados.service';
 
 @Component({
   selector: 'app-campos-empleado',
@@ -8,23 +9,47 @@ import { Empleado } from 'src/app/Model/empleado';
 })
 export class CamposEmpleadoComponent implements OnInit {
 
-  @Input() empleado: Empleado;
+  @Input() empleado: EmpleadoReal;
+  @Input() origen : string;
+
   Rol = [{ id: '', nombre: '' }];
   TipoSalario = [{ id: '', nombre: '' }];
   Descuento = [{ id: '', nombre: '' }];
-
-  constructor() { }
+  estado : boolean = false; 
+  constructor(private servicios : OcpEmpleadosService) { }
 
   ngOnInit() {
 
     if (!this.empleado) {
-      this.empleado = { tipoContrato: '', rol: '', tipoSalario: '', descuento: '' } as Empleado;
+      this.empleado = {"beneficio":0,"cedula":0,"codEmpleado":0,
+      "costoEstMes":0,"descuento":"","equipo":0,"fecCargue": new Date ,
+      "fehcaIngrero":new Date,"ingRet":"","nombres":"","observaciones":"",
+      "rol":"","salario":0,"salarioTotal":0,"tipoContrato":"","tipoSalario":"","usuario":""};
     }
 
     this.listarRoles();
     this.listaTiposSalario();
     this.ListarDescuentos();
+    this.ingreso("INGRESO");
+  }
 
+  ingreso(seleccion :any){
+    if(this.estado){
+      this.empleado.ingRet = seleccion; 
+    }else{
+      this.empleado.ingRet = seleccion; 
+    }
+  }
+  
+  crearEmpleado(){
+    console.log("crea");
+    this.empleado.usuario = "user";
+    this.servicios.createEmployed(this.empleado);
+  }
+
+  editarEmpleado(){
+    console.log("edita");
+    this.servicios.editEmployed (this.empleado);
   }
 
   listarRoles() {
@@ -45,8 +70,8 @@ export class CamposEmpleadoComponent implements OnInit {
 
   ListarDescuentos() {
     this.Descuento = [
-      { id: '1', nombre: 'Falso' },
-      { id: '2', nombre: 'Verdadero' },
+      { id: '1', nombre: 'FALSO' },
+      { id: '2', nombre: 'VERDADERO' },
     ];
   }
 

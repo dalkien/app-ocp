@@ -17,3 +17,34 @@ export interface Empleado {
   observaciones: string;
 
 }
+export interface EmpleadoReal {
+
+  codEmpleado: number  ;
+  cedula: number       ;
+  nombres: string      ;
+  fehcaIngrero :Date ;
+  ingRet: string       ;
+  tipoContrato: string ;
+  rol: string          ;
+  tipoSalario: string  ;
+  salario: number      ;
+  beneficio: number    ;
+  equipo: number       ;
+  descuento: string    ;
+  salarioTotal: number ;
+  costoEstMes: number  ;
+  observaciones: string;
+  fecCargue: Date      ;
+  usuario: string      ;
+} 
+
+export interface GetEmpleados {
+  response:GenericResponse; 
+  empleados: EmpleadoReal []; 
+}
+
+export interface GenericResponse{
+  descripcion: string;
+  messageCode: string;
+  returnCode: string;
+}

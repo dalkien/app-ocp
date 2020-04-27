@@ -8,11 +8,11 @@
   </div>
   <div class="card-body">
     <form action="" autocomplete="off" class="container-fluid">
-      <app-campos-empleado></app-campos-empleado>
+      <app-campos-empleado [origen]="nuevo" #child></app-campos-empleado>
       <div class="row">
         <div class="col-md-12 text-right">
           <a routerLink='/home/empleados' class="btn btn-danger btn-lg mx-2 text-white">Cancelar</a>
-          <button class="btn btn-primary btn-lg">Crear empleado</button>
+          <button class="btn btn-primary btn-lg" (click)="child.crearEmpleado()" >Crear empleado</button>
         </div>
       </div>
     </form>

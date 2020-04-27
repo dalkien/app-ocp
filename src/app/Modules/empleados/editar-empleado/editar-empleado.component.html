@@ -9,11 +9,11 @@
       </div>
       <div class="modal-body">
         <form action="" class="container-fluid" autocomplete="off">
-          <app-campos-empleado [empleado]="empleado"></app-campos-empleado>
+          <app-campos-empleado [empleado]="empleado" #child></app-campos-empleado>
           <div class="row">
             <div class="col-md-12 text-right">
               <a data-dismiss="modal" class="btn btn-danger btn-lg mx-2 text-white">Cancelar</a>
-              <button class="btn btn-primary btn-lg">Actualizar empleado</button>
+              <button class="btn btn-primary btn-lg" (click)="child.editarEmpleado()">Actualizar empleado</button>
             </div>
           </div>
         </form>

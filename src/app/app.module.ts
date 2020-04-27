@@ -9,6 +9,7 @@ import { ProyectosModule } from './Modules/proyectos/proyectos.module';
 import { NovedadesModule } from './Modules/novedades/novedades.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DnfModule } from './Modules/dnf/dnf.module';
+import { HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DnfModule } from './Modules/dnf/dnf.module';
     ProyectosModule,
     NovedadesModule,
     DnfModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

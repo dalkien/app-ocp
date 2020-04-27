@@ -2,7 +2,7 @@
   <div class="col-md-4">
     <div class="form-group">
       <label for="codigo">Código de empleado</label>
-      <input [(ngModel)]="empleado.codigo" type="text" name="codigo" class="form-control" id="codigo"
+      <input [(ngModel)]="empleado.codEmpleado" type="text" name="codigo" class="form-control" id="codigo"
         placeholder="jimenezelkg">
     </div>
   </div>
@@ -19,7 +19,7 @@
   <div class="col-md-4">
     <div class="form-group">
       <label for="numerodocumento">Número de documento</label>
-      <input [(ngModel)]="empleado.documento" type="text" name="numerodocumento" class="form-control"
+      <input [(ngModel)]="empleado.cedula" type="text" name="numerodocumento" class="form-control"
         id="numerodocumento" placeholder="1234567890">
     </div>
   </div>
@@ -41,7 +41,7 @@
   <div class="col-md-4">
     <div class="form-group">
       <label for="fecha">Fecha ingreso</label>
-      <input [(ngModel)]="empleado.fechaIngreso" type="date" class="form-control" id="fecha">
+      <input [(ngModel)]="empleado.fehcaIngrero" type="date" class="form-control" id="fecha">
     </div>
   </div>
   <div class="col-md-4">
@@ -81,7 +81,7 @@
   <div class="col-md-4">
     <div class="form-group">
       <label for="costoestandarmes">Costo estandar mes</label>
-      <input [(ngModel)]="empleado.costoEstandarMes" type="number" class="form-control" id="costoestandarmes"
+      <input [(ngModel)]="empleado.costoEstMes" type="number" class="form-control" id="costoestandarmes"
         placeholder="1000000">
     </div>
   </div>
@@ -90,20 +90,25 @@
       <label for="descuento">Descuento</label>
       <select [(ngModel)]="empleado.descuento" class="form-control" id="descuento">
         <option value="" disabled>Seleccione</option>
-        <option *ngFor="let d of Descuento" value="{{d.id}}">{{d.nombre}}</option>
+        <option *ngFor="let d of Descuento" value="{{d.nombre}}">{{d.nombre}}</option>
       </select>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="form-group">
-      <label for="novedad">Novedad</label>
-      <textarea [(ngModel)]="empleado.novedad" class="form-control" id="novedad" rows="1"></textarea>
     </div>
   </div>
   <div class="col-md-4">
     <div class="form-group">
       <label for="observaciones">Observaciones</label>
       <textarea [(ngModel)]="empleado.observaciones" class="form-control" id="observaciones" rows="1"></textarea>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group">
+      <label for="ingRet">Ingreso o retiro</label>
+      <br>
+      <label class="switch">
+        <input id="ingRet" type="checkbox" [(ngModel)]="estado"
+         (change)="ingreso(estado?'INGRESO':'RETIRIO')" />
+        <span class="slider round"></span>
+      </label>
     </div>
   </div>
 </div>

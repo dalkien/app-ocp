@@ -27,7 +27,7 @@ import { InactivarEmpleadoComponent } from './inactivar-empleado/inactivar-emple
     CommonModule,
     FormsModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
   ],
   exports: [
     EmpleadosComponent

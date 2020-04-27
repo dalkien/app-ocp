@@ -47,5 +47,17 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
-  }
+  },
+  "description": "HEAD\r # AppOcp",
+  "main": "karma.conf.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elkinjimenez/app-ocp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elkinjimenez/app-ocp/issues"
+  },
+  "homepage": "https://github.com/elkinjimenez/app-ocp#readme"
 }
