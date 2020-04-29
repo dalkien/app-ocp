@@ -1,6 +1,8 @@
+import { parametros, infSubParam, subparametros } from './../../servicios/parametros-ocp.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Proyecto } from 'src/app/Model/proyecto';
 import { Cliente } from 'src/app/Model/cliente';
+import { ParametrosOcpService } from '../../servicios/parametros-ocp.service';
 
 @Component({
   selector: 'app-campos-proyecto',
@@ -10,17 +12,20 @@ import { Cliente } from 'src/app/Model/cliente';
 export class CamposProyectoComponent implements OnInit {
 
   @Input() proyecto: Proyecto;
-  Clientes = [] as Cliente[];
-  Monedas = [{ id: '', nombre: '' }];
-  TipoTarifa = [{ id: '', nombre: '' }];
-  EstadoProyecto = [{ id: '', nombre: '' }];
-  Categoria = [{ id: '', nombre: '' }];
-  Direccion = [{ id: '', nombre: '' }];
-  LineaNegocio = [{ id: '', nombre: '' }];
-  TipoProyecto = [{ id: '', nombre: '' }];
-  Servicio = [{ id: '', nombre: '' }];
+  Clientes : subparametros [] = [] ;
+  Monedas : subparametros [] = [];
+  TipoTarifa : subparametros [] = [];
+  EstadoProyecto : subparametros [] = [];
+  Categoria : subparametros [] = [];
+  Direccion : subparametros [] = [];
+  LineaNegocio : subparametros [] = [];
+  TipoProyecto : subparametros [] = [];
+  Servicio : subparametros [] = [];
 
-  constructor() { }
+  ListasGenerales: infSubParam; 
+  constructor(private serviceList : ParametrosOcpService) {
+     this.serviceList.getSubpram(0); 
+   }
 
   ngOnInit() {
     if (!this.proyecto) {
@@ -39,16 +44,25 @@ export class CamposProyectoComponent implements OnInit {
       } as Proyecto;
     }
 
-    // PARA LOS SELECTS
-    this.listarClientes();
-    this.listarMonedas();
-    this.listarTiposTarifa();
-    this.listarEstadosProyecto();
-    this.listarCategorias();
-    this.listarDirecciones();
-    this.listarLineasNegocio();
-    this.listarTiposProyecto();
-    this.listarServicios();
+  }
+
+  valListas(){
+    this.ListasGenerales = this.serviceList.getLista();
+    //return this.ListasGenerales !=undefined; 
+    if(this.ListasGenerales !=undefined){
+      this.listarClientes();
+      this.listarMonedas();
+      this.listarTiposTarifa();
+      this.listarEstadosProyecto();
+      this.listarCategorias();
+      this.listarDirecciones();
+      this.listarLineasNegocio();
+      this.listarTiposProyecto();
+      this.listarServicios();
+      return true;
+    }else{
+      return false;
+    }
   }
 
   restarFechas() {
@@ -66,86 +80,84 @@ export class CamposProyectoComponent implements OnInit {
   }
 
   listarClientes() {
-    for (let i = 0; i < 20; i++) {
-      this.Clientes[i] = { id: '' + i, nombres: 'INTELISIS ASPEL SA DE CV ' + i };
+    let clients: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 309
+    );
+    if(this.Clientes.length <= 0){
+      this.Clientes = clients;
     }
   }
 
   listarMonedas() {
-    this.Monedas = [
-      { id: '1', nombre: 'COP' },
-      { id: '2', nombre: 'USD' },
-      { id: '3', nombre: 'MXN' },
-      { id: '4', nombre: 'EUR' },
-    ];
+    let monedas: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 2
+    );
+    if(this.Monedas.length <= 0){
+      this.Monedas = monedas;
+    }
   }
 
   listarTiposTarifa() {
-    this.TipoTarifa = [
-      { id: '1', nombre: 'Hora' },
-      { id: '2', nombre: 'Mensual' },
-      { id: '3', nombre: 'Rol' },
-      { id: '4', nombre: 'Entregables' },
-      { id: '5', nombre: 'Células' },
-      { id: '6', nombre: 'Precios fijos' },
-    ];
+    let tarifa: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 3
+    );
+    if(this.TipoTarifa .length <= 0){
+      this.TipoTarifa = tarifa;
+    }
   }
 
   listarEstadosProyecto() {
-    this.EstadoProyecto = [
-      { id: '1', nombre: 'Activo' },
-      { id: '2', nombre: 'Cerrado' },
-      { id: '3', nombre: 'Liberado por operaciones' },
-      { id: '4', nombre: 'Pendiente por crear' },
-      { id: '5', nombre: 'Suspendido' },
-    ];
+    let estado: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+    elemento.parametro == 4
+  );
+  if(this.EstadoProyecto .length <= 0){
+    this.EstadoProyecto = estado;
+  }
   }
 
   listarCategorias() {
-    this.Categoria = [
-      { id: '1', nombre: 'Costo Proyectos' },
-      { id: '2', nombre: 'Costo de ventas' },
-      { id: '3', nombre: 'Costo indirecto de operaciones' },
-      { id: '4', nombre: 'Costo indirecto Staff' },
-    ];
+    let catego: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 5
+    );
+    if(this.Categoria .length <= 0){
+      this.Categoria = catego;
+    }
   }
 
   listarDirecciones() {
-    this.Direccion = [
-      { id: '1', nombre: 'Soporte' },
-      { id: '2', nombre: 'Ingeniería' },
-      { id: '3', nombre: 'Aplicaciones' },
-      { id: '4', nombre: 'Centro de desarrollo' },
-      { id: '5', nombre: 'Administraivo' },
-      { id: '6', nombre: 'Comercial verticales' },
-      { id: '7', nombre: 'Comercial horizontales' },
-
-    ];
+    let direc: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 6
+    );
+    if(this.Direccion .length <= 0){
+      this.Direccion = direc;
+    }
   }
 
   listarLineasNegocio() {
-    this.LineaNegocio = [
-      { id: '1', nombre: 'Consultoría de sistemas' },
-      { id: '2', nombre: 'Fábrica de desarrollo de software' },
-      { id: '3', nombre: 'Integración de soluciones' },
-      { id: '4', nombre: 'Servicios y productos de tecnología' },
-    ];
+    let linea: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 7
+    );
+    if(this.LineaNegocio .length <= 0){
+      this.LineaNegocio = linea;
+    }
   }
 
   listarTiposProyecto() {
-    this.TipoProyecto = [
-      { id: '1', nombre: 'Tipo 1' },
-      { id: '2', nombre: 'Tipo 2' },
-      { id: '3', nombre: 'Tipo 3' },
-    ];
+    let tipo: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 8
+    );
+    if(this.TipoProyecto .length <= 0){
+      this.TipoProyecto = tipo;
+    }
   }
 
   listarServicios() {
-    this.Servicio = [
-      { id: '1', nombre: 'Servicio 1' },
-      { id: '2', nombre: 'Servicio 2' },
-      { id: '3', nombre: 'Servicio 3' },
-    ]
+    let serv: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 9
+    );
+    if(this.Servicio .length <= 0){
+      this.Servicio = serv;
+    }
   }
 
 }

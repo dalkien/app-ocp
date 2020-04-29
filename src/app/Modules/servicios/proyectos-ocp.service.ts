@@ -13,7 +13,7 @@ export class ProyectosOcpService {
   proyectos : listProyectos;
   getAllProyects(){
     this.service.get("http://localhost:7001/WsOCP-web/webresources/OCPProyectos/getAllProyects")
-      .subscribe((data)=> {this.proyectos = data as listProyectos; console.log(data)} , (error) => console.log(error) );
+      .subscribe((data)=> {this.proyectos = data as listProyectos} , (error) => console.log(error) );
     return this.proyectos;
   }
 

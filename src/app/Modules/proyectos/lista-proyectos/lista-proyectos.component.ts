@@ -25,7 +25,7 @@ export class ListaProyectosComponent implements OnInit {
       private serviListas : ParametrosOcpService) { }
 
   ngOnInit() {
-    this.serviListas.getSubpram(198);
+    this.serviListas.getSubpram(0);
     this.servProyecto.getAllProyects();
     }
   

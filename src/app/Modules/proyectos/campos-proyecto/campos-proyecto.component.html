@@ -2,7 +2,7 @@
   <div class="card-header">
     <h6>Datos del proyecto.</h6>
   </div>
-  <div class="card-body">
+  <div class="card-body" *ngIf="valListas()">
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
@@ -23,7 +23,7 @@
           <label for="cliente">Cliente</label>
           <select [(ngModel)]="proyecto.cliente" class="form-control" id="cliente">
             <option value="" disabled>Seleccione</option>
-            <option *ngFor="let c of Clientes" value="c.id">{{c.nombres}}</option>
+            <option *ngFor="let c of Clientes" value="{{c.subparametro}}">{{c.nombre}}</option>
           </select>
         </div>
       </div>
@@ -75,7 +75,7 @@
           <label for="moneda">Moneda</label>
           <select [(ngModel)]="proyecto.moneda" class="form-control" id="moneda">
             <option value="" disabled>Seleccione</option>
-            <option *ngFor="let m of Monedas" value="{{m.id}}">{{m.nombre}}</option>
+            <option *ngFor="let m of Monedas" value="{{m.subparametro}}">{{m.nombre}}</option>
           </select>
         </div>
       </div>
@@ -106,7 +106,7 @@
           <label for="tipotarifa">Tipo de tarifa</label>
           <select [(ngModel)]="proyecto.tipoTarifa" class="form-control" id="tipotarifa">
             <option value="" disabled>Seleccione</option>
-            <option *ngFor="let t of TipoTarifa" value="{{t.id}}">{{t.nombre}}</option>
+            <option *ngFor="let t of TipoTarifa" value="{{t.subparametro}}">{{t.nombre}}</option>
           </select>
         </div>
       </div>
@@ -121,7 +121,7 @@
           <label for="estadoproyecto">Estado del proyecto</label>
           <select [(ngModel)]="proyecto.estadoProyecto" class="form-control" id="estadoproyecto">
             <option value="" disabled>Seleccione</option>
-            <option *ngFor="let e of EstadoProyecto" value="{{e.id}}">{{e.nombre}}</option>
+            <option *ngFor="let e of EstadoProyecto" value="{{e.subparametro}}">{{e.nombre}}</option>
           </select>
         </div>
       </div>
@@ -130,7 +130,7 @@
           <label for="categoria">Categoría</label>
           <select [(ngModel)]="proyecto.categoria" class="form-control" id="categoria">
             <option value="" disabled>Seleccione</option>
-            <option *ngFor="let c of Categoria" value="{{c.id}}">{{c.nombre}}</option>
+            <option *ngFor="let c of Categoria" value="{{c.subparametro}}">{{c.nombre}}</option>
           </select>
         </div>
       </div>
@@ -139,7 +139,7 @@
           <label for="direccion">Dirección</label>
           <select [(ngModel)]="proyecto.direccion" class="form-control" id="direccion">
             <option value="" disabled>Seleccione</option>
-            <option *ngFor="let d of Direccion" value="{{d.id}}">{{d.nombre}}</option>
+            <option *ngFor="let d of Direccion" value="{{d.subparametro}}">{{d.nombre}}</option>
           </select>
         </div>
       </div>
@@ -148,7 +148,7 @@
           <label for="lineanegocio">Línea de negocio</label>
           <select [(ngModel)]="proyecto.lineaNegocio" class="form-control" id="lineanegocio">
             <option value="" disabled>Seleccione</option>
-            <option *ngFor="let l of LineaNegocio" value="{{l.id}}">{{l.nombre}}</option>
+            <option *ngFor="let l of LineaNegocio" value="{{l.subparametro}}">{{l.nombre}}</option>
           </select>
         </div>
       </div>
@@ -157,7 +157,7 @@
           <label for="tipoproyecto">Tipo de proyecto</label>
           <select [(ngModel)]="proyecto.tipoproyecto" class="form-control" id="tipoproyecto">
             <option value="" disabled>Seleccione</option>
-            <option *ngFor="let t of TipoProyecto" value="{{t.id}}">{{t.nombre}}</option>
+            <option *ngFor="let t of TipoProyecto" value="{{t.subparametro}}">{{t.nombre}}</option>
           </select>
         </div>
       </div>
@@ -166,7 +166,7 @@
           <label for="servicio">Servicio</label>
           <select [(ngModel)]="proyecto.servicio" class="form-control" id="servicio">
             <option value="" disabled>Seleccione</option>
-            <option *ngFor="let t of Servicio" value="{{t.id}}">{{t.nombre}}</option>
+            <option *ngFor="let t of Servicio" value="{{t.subparametro}}">{{t.nombre}}</option>
           </select>
         </div>
       </div>
