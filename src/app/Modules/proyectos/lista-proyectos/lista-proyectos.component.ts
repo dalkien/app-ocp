@@ -1,5 +1,9 @@
+import { infSubParam, subparametros } from './../../servicios/parametros-ocp.service';
+import { listProyectos, proyectoReal, infoProyect, informa } from './../../../Model/proyecto';
+import { ProyectosOcpService } from './../../servicios/proyectos-ocp.service';
 import { Component, OnInit } from '@angular/core';
-import { Proyecto } from 'src/app/Model/proyecto';
+import { Proyecto,  } from 'src/app/Model/proyecto';
+import { ParametrosOcpService } from '../../servicios/parametros-ocp.service';
 
 @Component({
   selector: 'app-lista-proyectos',
@@ -12,47 +16,47 @@ export class ListaProyectosComponent implements OnInit {
 
   proyectos = [] as Proyecto[];
 
-  constructor() { }
+  proyects : listProyectos; 
+
+  proyectsLs :  proyectoReal []; 
+
+  proyectsInfo : infoProyect[] = [];
+  constructor(private servProyecto :  ProyectosOcpService,
+      private serviListas : ParametrosOcpService) { }
 
   ngOnInit() {
-    this.listaProyectos();
-  }
-
-  listaProyectos() {
-    let proyecto = {} as Proyecto;
-
-    this.proyectos = [
-      proyecto = {
-        codigo: '1234',
-        nombre: 'Proyecto OCP',
-        cliente: '1',
-        fechaInicioContractual: '2020/02/01',
-        fechaFinContractual: '2020/03/30',
-        duracionProyecto: '60',
-        alcance: 'Servicio de análisis de causa raíz aplica para las PQRS asociadas a los servicios de Claro',
-        ocContrato: '1',
-        nContratoOc: '4500137750',
-        moneda: '1',
-        valorTotalAdjudicado: '512214000',
-        valorFormalizadoHost: '512214000',
-        valorUltimoContrato: '47100000',
-        tipoTarifa: '2',
-        tarifa: '44500',
-        estadoProyecto: '1',
-        categoria: '1',
-        direccion: '2',
-        lineaNegocio: '2',
-        tipoproyecto: '1',
-        servicio: '2',
-        subproyecto: '2342434',
-        estadoContrato: '1',
-      }
-    ];
-
-  }
-
+    this.serviListas.getSubpram(198);
+    this.servProyecto.getAllProyects();
+    }
+  
   verProyecto(p: Proyecto): void {
     this.proyectoSeleccionado = p;
+  }
+
+valList(){
+    this.proyects = this.servProyecto.getList();
+    let listProy : any = this.serviListas.getLista();
+    if(this.proyects != undefined){
+      this.proyectsLs = this.proyects.proyectos;
+      let listaOk : boolean = true;
+      let infor: informa = { 'codProyecto':0, 'nombre': '', 'nombreCliente':''}; 
+      this.proyectsLs.forEach( element => {
+        let infoData : infoProyect = { 'proyecto' : element , 'info': infor };
+        let nombre : subparametros = listProy.paraDesc.find((element2) =>
+            element2.nombre === infoData.proyecto.codProyecto.toString()  );
+        let cliente : subparametros = listProy.paraDesc.find((element2) =>
+            element2.subparametro == infoData.proyecto.idCliente  );
+        cliente = cliente !=undefined ? cliente :
+         { 'nombre':'', 'comentario':'','parametro': 0, 'subparametro' : 0} ; 
+        infoData.info.nombre = nombre.comentario; 
+        infoData.info.codProyecto = element.codProyecto; 
+        infoData.info.nombreCliente = cliente.nombre ; 
+        this.proyectsInfo.push(infoData);
+      });
+      return true;
+    }else{
+      return false;
+    }
   }
 
 }

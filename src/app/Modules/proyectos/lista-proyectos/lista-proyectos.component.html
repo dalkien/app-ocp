@@ -14,19 +14,20 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let p of proyectos">
-        <td>{{p.codigo}}</td>
-        <td>{{p.nombre}}</td>
-        <td>{{p.cliente}}</td>
-        <td>{{p.fechaInicioContractual}}</td>
-        <td>{{p.fehchaFinContractual}}</td>
+    <tbody *ngIf="valList()">
+      <!--tr *ngFor="let p of proyectsLs"-->
+      <tr *ngFor="let p of proyectsInfo" >
+        <td>{{p.proyecto.codProyecto}}</td>
+        <td>{{p.info.nombre}}</td>
+        <td>{{p.info.nombreCliente}}</td>
+        <td>{{p.proyecto.fechaInicio}}</td>
+        <td>{{p.proyecto.fechaFin}}</td>
         <td>
-          <a placement="left" ngbTooltip="Editar proyecto: {{p.nombre}}" (click)="verProyecto(p)" data-toggle="modal"
+          <a placement="left" ngbTooltip="Editar proyecto: {{p.info.nombre}}" (click)="verProyecto(p)" data-toggle="modal"
             data-target=".modal-editar-proyecto">
             <i class="fas fa-pencil-alt fa-lg"></i>
           </a>
-          <a placement="left" ngbTooltip="Ver proyecto: {{p.nombre}}" (click)="verProyecto(p)" data-toggle="modal"
+          <a placement="left" ngbTooltip="Ver proyecto: {{p.info.nombre}}" (click)="verProyecto(p)" data-toggle="modal"
             class="mx-2" data-target=".modal-ver-proyecto">
             <i class="fas fa-eye fa-lg"></i>
           </a>
