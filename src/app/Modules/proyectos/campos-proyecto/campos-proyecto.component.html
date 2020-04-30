@@ -37,7 +37,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="fechafinproyecto">Fecha de fin contractual</label>
-          <input [(ngModel)]="proyecto.fechaFinContractual" (keyup)="restarFechas()" (change)="restarFechas()"
+          <input [(ngModel)]="fechaFinContractual" (keyup)="restarFechas()" (change)="restarFechas()"
             name="fechaFin" type="date" class="form-control" id="fechafinproyecto">
         </div>
       </div>
@@ -146,6 +146,15 @@
         <div class="form-group">
           <label for="categoria">Categoría</label>
           <select [(ngModel)]="proyecto.categoria" class="form-control" id="categoria">
+            <option value="" disabled>Seleccione</option>
+            <option *ngFor="let c of Categoria" value="{{c.subparametro}}">{{c.nombre}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="categoria">Clasificación Venta</label>
+          <select [(ngModel)]="clasVenta" class="form-control" id="categoria">
             <option value="" disabled>Seleccione</option>
             <option *ngFor="let c of Categoria" value="{{c.subparametro}}">{{c.nombre}}</option>
           </select>
@@ -274,7 +283,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="ftesplaneadospromedio">FTES Planeados (Promedio)</label>
-          <input type="text" class="form-control" id="ftesplaneadospromedio" placeholder="12">
+          <input type="number" [(ngModel)]="FTESPlan" class="form-control" id="ftesplaneadospromedio" placeholder="12">
         </div>
       </div>
       <div class="col-md-4">
@@ -287,6 +296,12 @@
         <div class="form-group">
           <label for="costoplaneado">Factor ICA</label>
           <input type="number" [(ngModel)]="factICA" class="form-control" id="costoplaneado" placeholder="1704266482">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="costoplaneado">Factor Provisión</label>
+          <input type="number" [(ngModel)]="factProvIm" class="form-control" id="costoplaneado" placeholder="1704266482">
         </div>
       </div>
     </div>

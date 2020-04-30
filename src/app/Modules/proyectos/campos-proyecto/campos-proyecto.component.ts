@@ -24,12 +24,19 @@ export class CamposProyectoComponent implements OnInit {
   Servicio : subparametros [] = [];
   Gerentes : subparametros [] = []; 
   Operaciones : subparametros [] = [];
+  ClasificacionVenta: subparametros [] = [];
 
   gerente: string= "";  
   opera: string= "";
-  comentario: string = ""; 
+  comentario: string = "";
+  FTESPlan: number;  
   costoPlaneado: number;
   factICA : number;
+  factProvIm: number; 
+  clasVenta: number;
+  fechaFinContractual: Date; 
+  fechaInicioContractual: Date; 
+
   ListasGenerales: infSubParam; 
   constructor(private serviceList : ParametrosOcpService) {
      this.serviceList.getSubpram(0); 
@@ -188,6 +195,15 @@ export class CamposProyectoComponent implements OnInit {
     }
   }
 
+  listarClasVenta(){
+    let serv: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 115
+    );
+    if(this.ClasificacionVenta .length <= 0){
+      this.ClasificacionVenta	 = serv;
+    }
+  }
+
 
   creaProyecto(){
     let datosProy : proyectoReal; 
@@ -195,18 +211,18 @@ export class CamposProyectoComponent implements OnInit {
       alcance: this.proyecto.alcance,
       codProyecto: parseInt(this.proyecto.codigo),
       comentarios:             this.comentario   ,
-      costoPlaneado:           costoPlaneado  ,
-      duracion:                this.proyecto.duracionProyecto   ,
+      costoPlaneado:           this.costoPlaneado  ,
+      duracion:                parseInt(this.proyecto.duracionProyecto)   ,
       factorICA:               this.factICA   ,
-      factorProvIndem:         this.proyecto   ,
-      fecCargue:               this.proyecto   ,
-      fechaFin:                this.proyecto   ,
-      fechaInicio:             this.proyecto   ,
-      ftePlaneado:             this.proyecto   ,
-      idCategoria:             this.proyecto   ,
-      idClasificacionVenta:    this.proyecto   ,
-      idCliente:               this.proyecto   ,
-      idDireccion:             this.proyecto   ,
+      factorProvIndem:         this.factProvIm   ,
+      fecCargue:               new Date()  ,
+      fechaFin:                this.fechaFinContractual   ,
+      fechaInicio:             this.fechaInicioContractual   ,
+      ftePlaneado:             this.FTESPlan   ,
+      idCategoria:             parseInt(this.proyecto.categoria)   ,
+      idClasificacionVenta:    this.clasVenta   ,
+      idCliente:               parseInt(this.proyecto.cliente)   ,
+      idDireccion:             this.proyecto.direccion   ,
       idDirector:              this.proyecto   ,
       idEstadoProyecto:        this.proyecto   ,
       idGerente:               this.proyecto   ,
@@ -224,7 +240,7 @@ export class CamposProyectoComponent implements OnInit {
       valorTarifa2:            this.proyecto   ,
       valorTarifa3:            this.proyecto   
     }
-    ;*/ 
+    ; */
     let proyect : proyectoCrea = { proyecto: datosProy, descripcion: this.proyecto.nombre,
        ocContrato: this.proyecto.ocContrato, ocNumContrato: this.proyecto.nContratoOc }; 
   }
