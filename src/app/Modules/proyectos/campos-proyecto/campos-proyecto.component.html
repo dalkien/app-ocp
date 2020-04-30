@@ -93,14 +93,14 @@
             id="valorformalizadohost" placeholder="512214000">
         </div>
       </div>
-      <div class="col-md-4">
+      <!--div class="col-md-4">
         <div class="form-group">
           <label for="valorultimocontrato">Valor último contrato u OC</label>
           <input [(ngModel)]="proyecto.valorUltimoContrato" type="text" class="form-control" id="valorultimocontrato"
             placeholder="47100000">
           <small class="text-danger">No definido en el excel</small>
         </div>
-      </div>
+      </div-->
       <div class="col-md-4">
         <div class="form-group">
           <label for="tipotarifa">Tipo de tarifa</label>
@@ -122,6 +122,23 @@
           <select [(ngModel)]="proyecto.estadoProyecto" class="form-control" id="estadoproyecto">
             <option value="" disabled>Seleccione</option>
             <option *ngFor="let e of EstadoProyecto" value="{{e.subparametro}}">{{e.nombre}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="operacion">Operación</label>
+          <select class="form-control" [ngModel]="opera" id="operacion">
+            <!--option value="" disabled>Seleccione</option>
+            <option *ngFor="let l of Operaciones" value="{{l.subparametro}}">{{l.nombre}}</option-->
+            <option value="" disabled>Seleccione</option>
+            <option value="0">ADMINISTRATIVO</option>
+            <option value="1">CLARO</option>
+            <option value="2">ECUADOR</option>
+            <option value="3">ECUADOR_COSTO</option>
+            <option value="4">ECUADOR_GASTO</option>
+            <option value="5">HITSS</option>
+            <option value="6">OOCC</option>
           </select>
         </div>
       </div>
@@ -149,6 +166,15 @@
           <select [(ngModel)]="proyecto.lineaNegocio" class="form-control" id="lineanegocio">
             <option value="" disabled>Seleccione</option>
             <option *ngFor="let l of LineaNegocio" value="{{l.subparametro}}">{{l.nombre}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="gerente">Gerente</label>
+          <select class="form-control" [ngModel]="gerente" id="gerente">
+            <option value="" disabled>Seleccione</option>
+            <option *ngFor="let l of Gerentes" value="{{l.subparametro}}">{{l.nombre}}</option>
           </select>
         </div>
       </div>
@@ -189,45 +215,28 @@
           </select>
         </div>
       </div>
-
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="comentarios">Comentarios</label>
+          <textarea [(ngModel)]="comentario" class="form-control" id="comentarios" rows="2"></textarea>
+        </div>
+      </div>
     </div>
 
   </div>
 </div>
-<!-- Información operacional. -->
+<!-- Información operacional. >
 <div class="card mt-4">
   <div class="card-header">
     <h6>Información operacional.</h6>
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="operacion">Operación</label>
-          <select class="form-control" id="operacion">
-            <option value="" disabled>Seleccione</option>
-            <option>OOCC</option>
-            <option>CLARO</option>
-            <option>ECUADOR</option>
-            <option>HITSS</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="form-group">
-          <label for="gerente">Gerente</label>
-          <select class="form-control" id="gerente">
-            <option value="" disabled>Seleccione</option>
-            <option>Oscar Carvajal</option>
-            <option>Miguel Ortiz/option>
-            <option>Omar Castellanos</option>
-          </select>
-        </div>
-      </div>
+      
     </div>
   </div>
 </div>
-<!-- Control financiero. -->
+< Control financiero. -->
 <div class="card mt-4">
   <div class="card-header">
     <h6>Control financiero.</h6>
@@ -259,7 +268,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="costoplaneado">Costo planeado</label>
-          <input type="text" class="form-control" id="costoplaneado" placeholder="1704266482">
+          <input type="number" [(ngModel)]="costoPlaneado" class="form-control" id="costoplaneado" placeholder="1704266482">
         </div>
       </div>
       <div class="col-md-4">
@@ -274,10 +283,16 @@
           <input type="text" class="form-control" id="margenplaneadoproyecto" placeholder="50">
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="costoplaneado">Factor ICA</label>
+          <input type="number" [(ngModel)]="factICA" class="form-control" id="costoplaneado" placeholder="1704266482">
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<!-- Stakeholders. -->
+<!-- Stakeholders. >
 <div class="card mt-4">
   <div class="card-header">
     <h6>Stakeholders.</h6>
@@ -305,7 +320,7 @@
     </div>
   </div>
 </div>
-<!-- Información operacional. -->
+< Información operacional. >
 <div class="card mt-4">
   <div class="card-header">
     <h6>Información operacional.</h6>
@@ -316,7 +331,7 @@
     </div>
   </div>
 </div>
-<!-- Comentarios. -->
+< Comentarios. >
 <div class="card mt-4">
   <div class="card-header">
     <h6>Comentarios.</h6>
@@ -344,7 +359,7 @@
     </div>
   </div>
 </div>
-<!-- Siguientes campos. -->
+<-- Siguientes campos. >
 <div class="card mt-4">
   <div class="card-header">
     <h6>Siguientes campos.</h6>
@@ -354,4 +369,4 @@
 
     </div>
   </div>
-</div>
+</div-->

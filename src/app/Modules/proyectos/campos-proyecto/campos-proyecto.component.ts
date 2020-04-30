@@ -1,6 +1,7 @@
+import { proyectoCrea } from './../../../Model/proyecto';
 import { parametros, infSubParam, subparametros } from './../../servicios/parametros-ocp.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Proyecto } from 'src/app/Model/proyecto';
+import { Proyecto, proyectoReal } from 'src/app/Model/proyecto';
 import { Cliente } from 'src/app/Model/cliente';
 import { ParametrosOcpService } from '../../servicios/parametros-ocp.service';
 
@@ -21,7 +22,14 @@ export class CamposProyectoComponent implements OnInit {
   LineaNegocio : subparametros [] = [];
   TipoProyecto : subparametros [] = [];
   Servicio : subparametros [] = [];
+  Gerentes : subparametros [] = []; 
+  Operaciones : subparametros [] = [];
 
+  gerente: string= "";  
+  opera: string= "";
+  comentario: string = ""; 
+  costoPlaneado: number;
+  factICA : number;
   ListasGenerales: infSubParam; 
   constructor(private serviceList : ParametrosOcpService) {
      this.serviceList.getSubpram(0); 
@@ -59,6 +67,8 @@ export class CamposProyectoComponent implements OnInit {
       this.listarLineasNegocio();
       this.listarTiposProyecto();
       this.listarServicios();
+      this.listarGerentes();
+      //this.listarOperaciones();
       return true;
     }else{
       return false;
@@ -159,5 +169,63 @@ export class CamposProyectoComponent implements OnInit {
       this.Servicio = serv;
     }
   }
+  
+  listarGerentes(){
+    let serv: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 166
+    );
+    if(this.Gerentes .length <= 0){
+      this.Gerentes = serv;
+    }
+  }
 
+  listarOperaciones(){
+    let serv: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 116
+    );
+    if(this.Operaciones .length <= 0){
+      this.Operaciones	 = serv;
+    }
+  }
+
+
+  creaProyecto(){
+    let datosProy : proyectoReal; 
+    /* let datosProy : proyectoReal = {
+      alcance: this.proyecto.alcance,
+      codProyecto: parseInt(this.proyecto.codigo),
+      comentarios:             this.comentario   ,
+      costoPlaneado:           costoPlaneado  ,
+      duracion:                this.proyecto.duracionProyecto   ,
+      factorICA:               this.factICA   ,
+      factorProvIndem:         this.proyecto   ,
+      fecCargue:               this.proyecto   ,
+      fechaFin:                this.proyecto   ,
+      fechaInicio:             this.proyecto   ,
+      ftePlaneado:             this.proyecto   ,
+      idCategoria:             this.proyecto   ,
+      idClasificacionVenta:    this.proyecto   ,
+      idCliente:               this.proyecto   ,
+      idDireccion:             this.proyecto   ,
+      idDirector:              this.proyecto   ,
+      idEstadoProyecto:        this.proyecto   ,
+      idGerente:               this.proyecto   ,
+      idLineaNegocio:          this.proyecto   ,
+      idMoneda:                this.proyecto   ,
+      idServicio:              this.proyecto   ,
+      idTipoAlianza:           this.proyecto   ,
+      idTipoProyecto:          this.proyecto   ,
+      idTipoServicio:          this.proyecto   ,
+      idTipoTarifa:            this.proyecto   ,
+      margenPlanaedo:          this.proyecto   ,
+      usuario:                 this.proyecto   ,
+      valorFormalHost:         this.proyecto   ,
+      valorTarifa:             this.proyecto   ,
+      valorTarifa2:            this.proyecto   ,
+      valorTarifa3:            this.proyecto   
+    }
+    ;*/ 
+    let proyect : proyectoCrea = { proyecto: datosProy, descripcion: this.proyecto.nombre,
+       ocContrato: this.proyecto.ocContrato, ocNumContrato: this.proyecto.nContratoOc }; 
+  }
 }
