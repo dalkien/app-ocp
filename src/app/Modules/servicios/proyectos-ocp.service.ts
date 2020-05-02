@@ -1,4 +1,4 @@
-import { listProyectos } from './../../Model/proyecto';
+import { listProyectos, proyectoCrea } from './../../Model/proyecto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { proyectoReal } from 'src/app/Model/proyecto';
@@ -19,6 +19,14 @@ export class ProyectosOcpService {
 
   getList(){
     return this.proyectos;    
+  }
+
+  createProyect(proyect: proyectoCrea){
+    this.service.post("htps://localhost:7001/WsOCP-web/webresources/OCPProyectos/createProyect",proyect);
+  }
+
+  editProyect(proyect: proyectoReal){
+    this.service.put("htps://localhost:7001/WsOCP-web/webresources/OCPProyectos/editProyect",proyect);
   }
 
 }

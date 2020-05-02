@@ -4,11 +4,11 @@
 <form action="" autocomplete="off">
   <div class="card">
     <div class="card-body">
-      <app-campos-proyecto></app-campos-proyecto>
+      <app-campos-proyecto #proyCamp></app-campos-proyecto>
       <div class="row">
         <div class="col-md-12 text-right mt-4">
           <a routerLink='/home/proyectos/lista' class="btn btn-danger btn-lg mx-2 text-white">Cancelar</a>
-          <button class="btn btn-primary btn-lg">Crear proyecto</button>
+          <button class="btn btn-primary btn-lg" (click)="proyCamp.creaProyecto()">Crear proyecto</button>
         </div>
       </div>
     </div>

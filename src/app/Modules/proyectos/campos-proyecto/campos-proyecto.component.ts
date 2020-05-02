@@ -1,3 +1,4 @@
+import { ProyectosOcpService } from './../../servicios/proyectos-ocp.service';
 import { proyectoCrea } from './../../../Model/proyecto';
 import { parametros, infSubParam, subparametros } from './../../servicios/parametros-ocp.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -13,6 +14,7 @@ import { ParametrosOcpService } from '../../servicios/parametros-ocp.service';
 export class CamposProyectoComponent implements OnInit {
 
   @Input() proyecto: Proyecto;
+  
   Clientes : subparametros [] = [] ;
   Monedas : subparametros [] = [];
   TipoTarifa : subparametros [] = [];
@@ -25,8 +27,11 @@ export class CamposProyectoComponent implements OnInit {
   Gerentes : subparametros [] = []; 
   Operaciones : subparametros [] = [];
   ClasificacionVenta: subparametros [] = [];
+  Directores: subparametros [] = [];
+  Alianzas: subparametros [] = [];
+  TipServicio: subparametros [] = [];
 
-  gerente: string= "";  
+  gerente: number;  
   opera: string= "";
   comentario: string = "";
   FTESPlan: number;  
@@ -36,9 +41,16 @@ export class CamposProyectoComponent implements OnInit {
   clasVenta: number;
   fechaFinContractual: Date; 
   fechaInicioContractual: Date; 
+  director: number; 
+  alianza:number;
+  tipServi :number; 
+  valTarifa1:number;
+  valTarifa2:number;
+  valTarifa3:number;
+  margenPlaneado:number;
 
   ListasGenerales: infSubParam; 
-  constructor(private serviceList : ParametrosOcpService) {
+  constructor(private serviceList : ParametrosOcpService, private proyectoServ : ProyectosOcpService ) {
      this.serviceList.getSubpram(0); 
    }
 
@@ -76,6 +88,10 @@ export class CamposProyectoComponent implements OnInit {
       this.listarServicios();
       this.listarGerentes();
       //this.listarOperaciones();
+      this.listarClasVenta();
+      this.listarDirectores();
+      this.listarAlianzas();
+      this.listarTipoServicios();
       return true;
     }else{
       return false;
@@ -83,7 +99,9 @@ export class CamposProyectoComponent implements OnInit {
   }
 
   restarFechas() {
-    if (this.proyecto.fechaInicioContractual !== '' && this.proyecto.fechaFinContractual !== '') {
+    if (this.proyecto.fechaInicioContractual !== undefined && this.proyecto.fechaFinContractual !== undefined) {
+      console.log("fec ini: "+ this.proyecto.fechaInicioContractual);
+      console.log("fec ini: "+ this.proyecto.fechaFinContractual);
       const fechaI = new Date(this.proyecto.fechaInicioContractual).getTime();
       const fechaF = new Date(this.proyecto.fechaFinContractual).getTime();
       const dias = (fechaF - fechaI) / (1000 * 60 * 60 * 24);
@@ -170,7 +188,7 @@ export class CamposProyectoComponent implements OnInit {
 
   listarServicios() {
     let serv: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
-      elemento.parametro == 9
+      elemento.parametro == 136
     );
     if(this.Servicio .length <= 0){
       this.Servicio = serv;
@@ -204,10 +222,42 @@ export class CamposProyectoComponent implements OnInit {
     }
   }
 
+  listarDirectores(){
+    let serv: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 159
+    );
+    if(this.Directores .length <= 0){
+      this.Directores	 = serv;
+    }
+  }
+
+  //Alianzas
+  listarAlianzas(){
+    let serv: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 110
+    );
+    if(this.Alianzas .length <= 0){
+      this.Alianzas	 = serv;
+    }
+  }
+  //tipServi
+  listarTipoServicios(){
+    let serv: subparametros[] = this.ListasGenerales.paraDesc.filter((elemento) => 
+      elemento.parametro == 141
+    );
+    if(this.TipServicio .length <= 0){
+      this.TipServicio	 = serv;
+    }
+  }
+  parseDate(s) {
+    var months = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,
+                  jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+    var p = s.split('-');
+    return new Date(p[0], p[1], p[2]);
+  }
 
   creaProyecto(){
-    let datosProy : proyectoReal; 
-    /* let datosProy : proyectoReal = {
+     let datosProy : proyectoReal = {
       alcance: this.proyecto.alcance,
       codProyecto: parseInt(this.proyecto.codigo),
       comentarios:             this.comentario   ,
@@ -216,32 +266,73 @@ export class CamposProyectoComponent implements OnInit {
       factorICA:               this.factICA   ,
       factorProvIndem:         this.factProvIm   ,
       fecCargue:               new Date()  ,
-      fechaFin:                this.fechaFinContractual   ,
-      fechaInicio:             this.fechaInicioContractual   ,
+      fechaFin:                this.parseDate(this.proyecto.fechaFinContractual)   ,
+      fechaInicio:             this.parseDate(this.proyecto.fechaInicioContractual)   ,
       ftePlaneado:             this.FTESPlan   ,
       idCategoria:             parseInt(this.proyecto.categoria)   ,
       idClasificacionVenta:    this.clasVenta   ,
       idCliente:               parseInt(this.proyecto.cliente)   ,
-      idDireccion:             this.proyecto.direccion   ,
-      idDirector:              this.proyecto   ,
-      idEstadoProyecto:        this.proyecto   ,
-      idGerente:               this.proyecto   ,
-      idLineaNegocio:          this.proyecto   ,
-      idMoneda:                this.proyecto   ,
-      idServicio:              this.proyecto   ,
-      idTipoAlianza:           this.proyecto   ,
-      idTipoProyecto:          this.proyecto   ,
-      idTipoServicio:          this.proyecto   ,
-      idTipoTarifa:            this.proyecto   ,
-      margenPlanaedo:          this.proyecto   ,
-      usuario:                 this.proyecto   ,
-      valorFormalHost:         this.proyecto   ,
-      valorTarifa:             this.proyecto   ,
-      valorTarifa2:            this.proyecto   ,
-      valorTarifa3:            this.proyecto   
+      idDireccion:             parseInt(this.proyecto.direccion)   ,
+      idDirector:              this.director   ,
+      idEstadoProyecto:        parseInt(this.proyecto.estadoProyecto)   ,
+      idGerente:               this.gerente   ,
+      idLineaNegocio:          parseInt(this.proyecto.lineaNegocio)   ,
+      idMoneda:                parseInt(this.proyecto.moneda)   ,
+      idServicio:              parseInt(this.proyecto.servicio)   ,
+      idTipoAlianza:           this.alianza   ,
+      idTipoProyecto:          parseInt(this.proyecto.tipoproyecto)   ,
+      idTipoServicio:          this.tipServi   ,
+      idTipoTarifa:            parseInt(this.proyecto.tipoTarifa)   ,
+      margenPlanaedo:          this.margenPlaneado, //this.proyecto   ,
+      usuario:                 "creaProyet"   ,
+      valorFormalHost:         parseInt(this.proyecto.valorFormalizadoHost)   ,
+      valorTarifa:             this.valTarifa1   ,
+      valorTarifa2:            this.valTarifa2   ,
+      valorTarifa3:            this.valTarifa3 
     }
-    ; */
+    ; 
     let proyect : proyectoCrea = { proyecto: datosProy, descripcion: this.proyecto.nombre,
        ocContrato: this.proyecto.ocContrato, ocNumContrato: this.proyecto.nContratoOc }; 
+    //console.log( JSON.stringify (proyect));
+    this.proyectoServ.createProyect(proyect);
   }
+
+  editarProyecto(){
+    let datosProy : proyectoReal = {
+     alcance: this.proyecto.alcance,
+     codProyecto: parseInt(this.proyecto.codigo),
+     comentarios:             this.comentario   ,
+     costoPlaneado:           this.costoPlaneado  ,
+     duracion:                parseInt(this.proyecto.duracionProyecto)   ,
+     factorICA:               this.factICA   ,
+     factorProvIndem:         this.factProvIm   ,
+     fecCargue:               new Date()  ,
+     fechaFin:                this.parseDate(this.proyecto.fechaFinContractual)   ,
+     fechaInicio:             this.parseDate(this.proyecto.fechaInicioContractual)   ,
+     ftePlaneado:             this.FTESPlan   ,
+     idCategoria:             parseInt(this.proyecto.categoria)   ,
+     idClasificacionVenta:    this.clasVenta   ,
+     idCliente:               parseInt(this.proyecto.cliente)   ,
+     idDireccion:             parseInt(this.proyecto.direccion)   ,
+     idDirector:              this.director   ,
+     idEstadoProyecto:        parseInt(this.proyecto.estadoProyecto)   ,
+     idGerente:               this.gerente   ,
+     idLineaNegocio:          parseInt(this.proyecto.lineaNegocio)   ,
+     idMoneda:                parseInt(this.proyecto.moneda)   ,
+     idServicio:              parseInt(this.proyecto.servicio)   ,
+     idTipoAlianza:           this.alianza   ,
+     idTipoProyecto:          parseInt(this.proyecto.tipoproyecto)   ,
+     idTipoServicio:          this.tipServi   ,
+     idTipoTarifa:            parseInt(this.proyecto.tipoTarifa)   ,
+     margenPlanaedo:          this.margenPlaneado, //this.proyecto   ,
+     usuario:                 "creaProyet"   ,
+     valorFormalHost:         parseInt(this.proyecto.valorFormalizadoHost)   ,
+     valorTarifa:             this.valTarifa1   ,
+     valorTarifa2:            this.valTarifa2   ,
+     valorTarifa3:            this.valTarifa3 
+   }; 
+   //console.log( JSON.stringify (proyect));
+   this.proyectoServ.editProyect(datosProy);
+ }
+
 }

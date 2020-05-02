@@ -7,6 +7,7 @@ import { CamposEmpleadoComponent } from '../campos-empleado/campos-empleado.comp
   styleUrls: ['./nuevo-empleado.component.css']
 })
 export class NuevoEmpleadoComponent implements OnInit {
+  nuevo = "nuevo";
   
   constructor() { }
 

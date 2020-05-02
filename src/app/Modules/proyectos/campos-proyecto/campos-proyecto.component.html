@@ -37,7 +37,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="fechafinproyecto">Fecha de fin contractual</label>
-          <input [(ngModel)]="fechaFinContractual" (keyup)="restarFechas()" (change)="restarFechas()"
+          <input [(ngModel)]="proyecto.fechaFinContractual" (keyup)="restarFechas()" (change)="restarFechas()"
             name="fechaFin" type="date" class="form-control" id="fechafinproyecto">
         </div>
       </div>
@@ -57,17 +57,18 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="contratooc">OC - Contrato</label>
-          <select [(ngModel)]="proyecto.ocContrato" class="form-control" id="contratooc">
+          <input [(ngModel)]="proyecto.ocContrato" type="text" class="form-control" id="contratooc" >
+          <!--select [(ngModel)]="proyecto.ocContrato" class="form-control" id="contratooc">
             <option value="" disabled>Seleccione</option>
             <option value="1">INTELISIS ASPEL SA DE CV</option>
-          </select>
+          </select-->
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label for="ncontrarooc">N° Contrato / OC</label>
           <input [(ngModel)]="proyecto.nContratoOc" type="text" class="form-control" id="ncontrarooc"
-            placeholder="4500137750">
+            placeholder="0">
         </div>
       </div>
       <div class="col-md-4">
@@ -128,7 +129,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="operacion">Operación</label>
-          <select class="form-control" [ngModel]="opera" id="operacion">
+          <select class="form-control" [(ngModel)]="opera" id="operacion">
             <!--option value="" disabled>Seleccione</option>
             <option *ngFor="let l of Operaciones" value="{{l.subparametro}}">{{l.nombre}}</option-->
             <option value="" disabled>Seleccione</option>
@@ -153,10 +154,10 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
-          <label for="categoria">Clasificación Venta</label>
-          <select [(ngModel)]="clasVenta" class="form-control" id="categoria">
+          <label for="clasVenta">Clasificación Venta</label>
+          <select [(ngModel)]="clasVenta" class="form-control" id="clasVenta">
             <option value="" disabled>Seleccione</option>
-            <option *ngFor="let c of Categoria" value="{{c.subparametro}}">{{c.nombre}}</option>
+            <option *ngFor="let c of ClasificacionVenta" value="{{c.subparametro}}">{{c.nombre}}</option>
           </select>
         </div>
       </div>
@@ -181,9 +182,18 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="gerente">Gerente</label>
-          <select class="form-control" [ngModel]="gerente" id="gerente">
+          <select [(ngModel)]="gerente" class="form-control" id="gerente">
             <option value="" disabled>Seleccione</option>
             <option *ngFor="let l of Gerentes" value="{{l.subparametro}}">{{l.nombre}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="director">Director</label>
+          <select  [(ngModel)]="director" class="form-control" id="director">
+            <option value="" disabled>Seleccione</option>
+            <option *ngFor="let l of Directores" value="{{l.subparametro}}">{{l.nombre}}</option>
           </select>
         </div>
       </div>
@@ -198,6 +208,15 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
+          <label for="tipservicio">Tipo de Servicio</label>
+          <select [(ngModel)]="tipServi" class="form-control" id="tipservicio">
+            <option value="" disabled>Seleccione</option>
+            <option *ngFor="let t of TipServicio" value="{{t.subparametro}}">{{t.nombre}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
           <label for="servicio">Servicio</label>
           <select [(ngModel)]="proyecto.servicio" class="form-control" id="servicio">
             <option value="" disabled>Seleccione</option>
@@ -207,11 +226,20 @@
       </div>
       <div class="col-md-4">
         <div class="form-group">
+          <label for="alianza">Alianza</label>
+          <select [(ngModel)]="alianza" class="form-control" id="alianza">
+            <option value="" disabled>Seleccione</option>
+            <option *ngFor="let t of Alianzas" value="{{t.subparametro}}">{{t.nombre}}</option>
+          </select>
+        </div>
+      </div>
+      <!--div class="col-md-4">
+        <div class="form-group">
           <label for="codigosubproyecto">Subproyecto (Código del proyecto)</label>
           <input [(ngModel)]="proyecto.subproyecto" type="text" class="form-control" id="codigosubproyecto"
             placeholder="54348">
         </div>
-      </div>
+      </div-->
       <div class="col-md-4">
         <div class="form-group">
           <label for="estadocontrato">Estado del contrato</label>
@@ -289,7 +317,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="margenplaneadoproyecto">Margen planeado proyecto (Porcentaje)</label>
-          <input type="text" class="form-control" id="margenplaneadoproyecto" placeholder="50">
+          <input type="number" [(ngModel)]="margenPlaneado" class="form-control" id="margenplaneadoproyecto" placeholder="50">
         </div>
       </div>
       <div class="col-md-4">
@@ -302,6 +330,23 @@
         <div class="form-group">
           <label for="costoplaneado">Factor Provisión</label>
           <input type="number" [(ngModel)]="factProvIm" class="form-control" id="costoplaneado" placeholder="1704266482">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="valtarifa">Valor Tarifa </label>
+          <input name="valtarifa" type="number" [(ngModel)]="valTarifa1" class="form-control" id="valtarifa">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="valtarifa2">Valor Tarifa 2</label>
+          <input name="valtarifa2" type="number" [(ngModel)]="valTarifa2" class="form-control" id="valtarifa2">
+        </div>
+      </div>      <div class="col-md-4">
+      <div class="form-group">
+          <label for="valtarifa3">Valor Tarifa 3</label>
+          <input name="valtarifa3" type="number" [(ngModel)]="valTarifa3" class="form-control" id="valtarifa3">
         </div>
       </div>
     </div>
