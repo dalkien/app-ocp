@@ -2,42 +2,33 @@
   <h5 class="font-weight-bold">Novedades de incapacidades y licencias.</h5>
   <a routerLink='/home/novedades/nueva' class="btn btn-primary">Nueva novedad</a>
 </div>
+<app-ver-novedad [novedadver]="consultaNovedad" ></app-ver-novedad>
 <div class="table-responsive text-center">
   <table class="table table-hover table-bordered">
     <thead class="cabecera-tabla">
       <tr>
-        <th scope="col">Código de empleado</th>
-        <th scope="col">Tipo novedad</th>
-        <th scope="col">Valor novedad</th>
-        <th scope="col">Detalle</th>
+        <th scope="col">Código</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Bonnos y Horas </th>
+        <th scope="col">Incapacidad y licencias</th>
+        <th scope="col">Novedad</th>
+        <th scope="col">Consulta</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td class="p-1">
-          <input type="text" class="form-control" id="codigoempleado">
+      <tr *ngFor="let item of listaNovedades">
+        <td>{{item.codigo}}</td>
+        <td>{{item.tipo}}</td>
+        <td>{{item.novBhes.length}}</td>
+        <td>{{item.novIncLins.length}}</td>
+        <td>{{item.novOtros.length}}</td>
+        <td>
+          <a class="pointer" placement="left" ngbTooltip="Ver Novedades: {{item.tipo}}"
+          (click)="consNove(item)" 
+          data-toggle="modal" data-target=".modal-ver-novedades">
+          <i class="fas fa-eye fa-lg"></i>
+        </a>
         </td>
-        <td class="p-1">
-          <input type="text" class="form-control" id="tiponovedad">
-        </td>
-        <td class="p-1">
-          <input type="text" class="form-control" id="valornovedad">
-        </td>
-        <td class="p-1">
-          <input type="text" class="form-control" id="detalle">
-        </td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>1202023</td>
-        <td>Elkin jimenez</td>
-        <td>ekn</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>12342023</td>
-        <td>Omar jimenez</td>
-        <td>omg</td>
       </tr>
     </tbody>
   </table>

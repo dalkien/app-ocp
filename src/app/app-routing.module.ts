@@ -1,3 +1,4 @@
+import { CargaComponent } from './Modules/novedades/carga/carga.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './Modules/home/home/home.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'home/empleados/carga-masiva', component: CargaMasivaComponent },
   // NOVEDADES
   { path: 'home/novedades/nueva', component: NuevaNovedadComponent },
+  { path: 'home/novedades/carga', component: CargaComponent},
   { path: 'home/novedades/novedades', component: ListaNovedadesComponent },
   { path: 'home/novedades/otras-nov', component: OtrasNovedadesComponent },
   // PROYECTOS

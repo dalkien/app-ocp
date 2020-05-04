@@ -1,0 +1,30 @@
+<div class="d-flex justify-content-between mb-4">
+    <h5 class="font-weight-bold">Carga Masiva de Novedades</h5>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <h6 class="h6">Cargue un archivo con los parámetros establecidos para esta acción.</h6>
+      <small>Debe ser un archivo de texto plano de tipo csv.</small>
+    </div>
+    <div class="card-body">
+      <form action="">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Carga masiva</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="cargamasiva" aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="cargamasiva">Seleccione un archivo</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 text-right">
+            <a routerLink='/home/novedades/novedades' class="btn btn-danger btn-lg mx-2">Cancelar</a>
+            <button type="submit" class="btn btn-primary btn-lg">Cargar archivo</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

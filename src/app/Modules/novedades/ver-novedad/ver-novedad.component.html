@@ -1,0 +1,133 @@
+<div class="modal fade modal-ver-novedades" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" >
+          <h5 class="modal-title">Detalle Novedades</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="accordion" id="acc-nov">
+                <div id="cabecera-bhe" *ngIf="novedadver.novBhes.length > 0">
+                    <a class="h5 pointer" type="button" 
+                    data-toggle="collapse" data-target="#item-bhe" aria-expanded="true"
+                      aria-controls="item-bhe"> Bonos y Horas Extras 
+                    </a>
+                </div>
+                <div id="item-bhe" class="collapse fade" aria-labelledby="cabecera-bhe" data-parent="#acc-nov">
+                    <div class="table-responsive text-center" >
+                        <table class="table table-hover table-bordered">
+                            <thead class="cabecera-tabla">
+                              <tr>
+                                <th scope="col">Código proyecto </th>
+                                <th scope="col">Código empleado</th>
+                                <th scope="col">Tipo Novedad </th>
+                                <th scope="col">Período</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Observación</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let bhe of novedadver.novBhes">
+                                <td>{{bhe.idProyecto}}</td>
+                                <td>{{bhe.codEmpleado}}</td>
+                                <td>
+                                    <select id="tipoNovBhe" [(ngModel)]="bhe.tipo" disabled>
+                                       <option value="1">Bonos</option> 
+                                       <option value="2">Horas Extras</option> 
+                                    </select>
+                                </td>
+                                <td>{{bhe.anio}}/{{bhe.mes}}</td>
+                                <td>{{bhe.valor}}</td>
+                                <td>{{bhe.comentarios}}</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="cabecera-IncLic" *ngIf="novedadver.novIncLins.length >0">
+                    <a class="h5 pointer" type="button" 
+                    data-toggle="collapse" data-target="#item-IncLic" aria-expanded="true"
+                      aria-controls="item-IncLic"> Incapacidades y Licencias  
+                    </a>
+                </div>
+                <div id="item-IncLic" class="collapse fade" aria-labelledby="cabecera-IncLic" data-parent="#acc-nov">
+                    <div class="table-responsive text-center" >
+                        <table class="table table-hover table-bordered">
+                            <thead class="cabecera-tabla">
+                              <tr>
+                                <th scope="col">Código Empleado</th>
+                                <th scope="col">Período</th>
+                                <th scope="col">Días Enfermedad General Medica</th>
+                                <th scope="col">Días Licencia Maternidad</th>
+                                <th scope="col">Días Accidente de Trabajo o Enfermedad Laboral</th>
+                                <th scope="col">Días Licencia Remunerada</th>
+                                <th scope="col">Días Licencia No Remunerada</th>
+                                <th scope="col">Días Luto</th>
+                                <th scope="col">Días Paternidad</th>
+                                <th scope="col">Días Sanciones</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of novedadver.novIncLins">
+                                <td>{{item.codEmpleado}}</td>
+                                <td>{{item.anio}}/{{item.mes}}</td>
+                                <td>{{item.egm}}</td>
+                                <td>{{item.lm}}</td>
+                                <td>{{item.atep}}</td>
+                                <td>{{item.lr}}</td>
+                                <td>{{item.lnr}}</td>
+                                <td>{{item.luto}}</td>
+                                <td>{{item.paternidad}}</td>
+                                <td>{{item.sanciones}}</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="cabecera-otros" *ngIf="novedadver.novOtros.length >0">
+                    <a class="h5 pointer" type="button" 
+                    data-toggle="collapse" data-target="#item-otros" aria-expanded="true"
+                      aria-controls="item-otros">Otras Novedades
+                    </a>
+                </div>
+                <div id="item-otros" class="collapse fade" aria-labelledby="cabecera-otros" data-parent="#acc-nov">
+                    <div class="table-responsive text-center" >
+                        <table class="table table-hover table-bordered">
+                            <thead class="cabecera-tabla">
+                              <tr>
+                                <th scope="col">Código Empleado</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Valor de la Novedad</th>
+                                <th scope="col">Período</th>
+                                <th scope="col">Observaciones</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of novedadver.novOtros">
+                                <td>{{item.codEmpleado}}</td>
+                                <td>
+                                    <select id="tipoNovOtros" [(ngModel)]="item.tipo" disabled>
+                                        <option value="1">Vacaciones</option>
+                                        <option value="2">Otros</option>
+                                        <option value="3">Observaciones</option>
+                                    </select>
+                                </td>
+                                <td>{{item.valor}}</td>
+                                <td>{{item.anio}}/{{item.mes}}</td>
+                                <td>{{item.comentarios}}</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- <textarea style="width: 100%; height: 100px;">{{infoIn}}</textarea>
+            <br>
+            <button (click)="verData()"> ver info</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
