@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <div class="d-flex justify-content-between">
-        <h4 class="my-0">Proyecto {{Proyecto.nombre}}</h4>
+        <h4 class="my-0">Proyecto {{datosProyecto.comentario}}</h4>
         <a placement="left" ngbTooltip="Cambiar a otro proyecto." (click)="cambiarProyecto()"
           class="btn text-white btn-danger">
           <i class="fas fa-times"></i>
@@ -16,15 +16,15 @@
             <div class="card-body">
               <div class="d-flex justify-content-between">
                 <h6>Código:</h6>
-                <h5 class="font-weight-bold text-right">{{Proyecto.codigo}}</h5>
+                <h5 class="font-weight-bold text-right">{{Proyecto.codProyecto}}</h5>
               </div>
               <div class="d-flex justify-content-between">
                 <h6>Dirección:</h6>
-                <h6 class="font-weight-bold text-right">{{Proyecto.direccion}}</h6>
+                <h6 class="font-weight-bold text-right">{{listaDatos[0]}}</h6>
               </div>
               <div class="d-flex justify-content-between">
                 <h6>Línea de negocio:</h6>
-                <h6 class="font-weight-bold text-right">{{Proyecto.lineaNegocio}}</h6>
+                <h6 class="font-weight-bold text-right">{{listaDatos[1]}}</h6>
               </div>
             </div>
             <div class="card-footer">
@@ -39,25 +39,25 @@
           <div class="card" style="height: 100%;">
             <div class="card-body">
               <div class="d-flex justify-content-between">
-                <h5>
-                  <span class="badge badge-primary">{{Proyecto.fechaInicioContractual}}</span> hasta
-                  <span class="badge badge-primary">{{Proyecto.fechaFinContractual}}</span>
+                <h5 (mouseover)="data()">
+                  <span class="badge badge-primary">{{listaDatos[3]}}</span> hasta
+                  <span class="badge badge-primary">{{listaDatos[4]}}</span>
                 </h5>
-                <h5>{{Proyecto.duracionProyecto}} días</h5>
+                <h5>{{listaDatos[5]}} días</h5>
               </div>
               <hr class="my-1">
-              <h6 class="text-right">Moneda: <span class="text-primary">{{Proyecto.moneda}}</span></h6>
+              <h6 class="text-right">Moneda: <span class="text-primary">{{listaDatos[2]}}</span></h6>
               <div class="d-flex justify-content-between">
                 <h6>Valor último contrato:</h6>
-                <h6 class="font-weight-bold text-right">$ {{Proyecto.valorUltimoContrato}}</h6>
+                <h6 class="font-weight-bold text-right">$ {{Proyecto.valorTarifa}}</h6>
               </div>
               <div class="d-flex justify-content-between">
                 <h6>Valor adjudicado:</h6>
-                <h6 class="font-weight-bold text-right">$ {{Proyecto.valorTotalAdjudicado}}</h6>
+                <h6 class="font-weight-bold text-right">$ {{Proyecto.costoPlaneado}}</h6>
               </div>
               <div class="d-flex justify-content-between">
                 <h6>Valor formalizado HOST:</h6>
-                <h6 class="font-weight-bold text-right">$ {{Proyecto.valorFormalizadoHost}}</h6>
+                <h6 class="font-weight-bold text-right">$ {{Proyecto.valorFormalHost}}</h6>
               </div>
             </div>
           </div>

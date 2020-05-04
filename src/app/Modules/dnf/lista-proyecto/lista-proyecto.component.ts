@@ -1,5 +1,7 @@
+import { ParametrosOcpService, infSubParam, subparametros } from './../../servicios/parametros-ocp.service';
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { Proyecto } from 'src/app/Model/proyecto';
+import { proyectoReal, listProyectos } from 'src/app/Model/proyecto';
+import { ProyectosOcpService } from '../../servicios/proyectos-ocp.service';
 
 @Component({
   selector: 'app-lista-proyecto',
@@ -8,76 +10,40 @@ import { Proyecto } from 'src/app/Model/proyecto';
 })
 export class ListaProyectoComponent implements OnInit {
 
-  Proyectos = [] as Proyecto[];
-  ProyectoSeleccionado: Proyecto;
+  Proyectos : proyectoReal[] = [] ;
+  Proyectosls : listProyectos ;
+  ProyectoSeleccionado: proyectoReal;
   CodProyecto = '';
-
-  constructor() { }
+  CodProyect:number = 0;
+  parametros:infSubParam; 
+  paramProyect:subparametros[];
+  selParam: subparametros;
+  listaDatos: string[] = [];
+  constructor(private proyetServ: ProyectosOcpService ,
+    private serviListas : ParametrosOcpService) { }
 
   ngOnInit() {
     this.listaProyectos();
   }
 
   listaProyectos() {
-    let proyecto = {} as Proyecto;
-    this.Proyectos = [
-      proyecto = {
-        codigo: '1234',
-        nombre: 'OCP',
-        cliente: '1',
-        fechaInicioContractual: '2020/02/01',
-        fechaFinContractual: '2020/03/30',
-        duracionProyecto: '60',
-        alcance: 'Servicio de análisis de causa raíz aplica para las PQRS asociadas a los servicios de Claro',
-        ocContrato: '1',
-        nContratoOc: '4500137750',
-        moneda: '1',
-        valorTotalAdjudicado: '512214000',
-        valorFormalizadoHost: '512214000',
-        valorUltimoContrato: '47100000',
-        tipoTarifa: '2',
-        tarifa: '44500',
-        estadoProyecto: '1',
-        categoria: '1',
-        direccion: '2',
-        lineaNegocio: '2',
-        tipoproyecto: '1',
-        servicio: '2',
-        subproyecto: '2342434',
-        estadoContrato: '1',
-      },
-      proyecto = {
-        codigo: '123434',
-        nombre: 'IMEI',
-        cliente: '1',
-        fechaInicioContractual: '2020/02/01',
-        fechaFinContractual: '2020/03/30',
-        duracionProyecto: '60',
-        alcance: 'Servicio de análisis de causa raíz aplica para las PQRS asociadas',
-        ocContrato: '1',
-        nContratoOc: '4500137750',
-        moneda: '1',
-        valorTotalAdjudicado: '512214000',
-        valorFormalizadoHost: '512214000',
-        valorUltimoContrato: '47100000',
-        tipoTarifa: '2',
-        tarifa: '44500',
-        estadoProyecto: '1',
-        categoria: '1',
-        direccion: '2',
-        lineaNegocio: '2',
-        tipoproyecto: '1',
-        servicio: '2',
-        subproyecto: '2342434',
-        estadoContrato: '1',
-      },
-    ];
+    this.proyetServ.getAllProyectsDNF()
+    .subscribe((data)=> {this.Proyectosls = data as listProyectos ;
+      this.Proyectos = this.Proyectosls.proyectos;
+       //console.log(JSON.stringify(this.Proyectos));
+      } );
+      this.serviListas.getSubpramDNF(0)
+      .subscribe((data) => {this.parametros = data as infSubParam;
+      this.paramProyect = this.parametros.paraDesc.filter((x) => x.parametro === 198); 
+      });
   }
 
-  datosProyecto(codigo) {
-    this.ProyectoSeleccionado = this.Proyectos.find(
-      proyecto => proyecto.codigo === codigo
-    );
+  datosProyecto(codigo: string) {
+     this.ProyectoSeleccionado = this.Proyectos.find(
+       proyecto => proyecto.codProyecto === parseInt(codigo) 
+     );
+     debugger;
+     this.nameProy(parseInt(codigo));
   }
 
   recibirCodProyecto($event) {
@@ -90,4 +56,19 @@ export class ListaProyectoComponent implements OnInit {
     }
   }
 
+  nameProy(codigo:number){
+    this.selParam = this.parametros.paraDesc.find((x)=> x.nombre === codigo.toString());
+    let direccion = this.parametros.paraDesc.find((x)=> x.subparametro === this.ProyectoSeleccionado.idDireccion);
+    let lineaNeg = this.parametros.paraDesc.find((x)=> x.subparametro === this.ProyectoSeleccionado.idLineaNegocio);
+    let moneda = this.parametros.paraDesc.find((x)=> x.subparametro === this.ProyectoSeleccionado.idMoneda);
+    this.listaDatos.push(direccion.nombre);
+    this.listaDatos.push(lineaNeg.nombre);
+    this.listaDatos.push(moneda.nombre);
+    this.listaDatos.push(this.ProyectoSeleccionado.fechaInicio.toString().split('T')[0]);
+    this.listaDatos.push(this.ProyectoSeleccionado.fechaFin.toString().split('T')[0]);
+    const fechaI = new Date(this.ProyectoSeleccionado.fechaInicio.toString().split('T')[0]).getTime();
+      const fechaF = new Date(this.ProyectoSeleccionado.fechaFin.toString().split('T')[0]).getTime();
+      const dias = (fechaF - fechaI) / (1000 * 60 * 60 * 24);
+      this.listaDatos.push(dias.toString());
+  }
 }

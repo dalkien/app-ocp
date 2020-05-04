@@ -17,6 +17,10 @@ export class ProyectosOcpService {
     return this.proyectos;
   }
 
+  getAllProyectsDNF(){
+    return this.service.get("http://localhost:7001/WsOCP-web/webresources/OCPProyectos/getAllProyects");
+  }
+
   getList(){
     return this.proyectos;    
   }

@@ -1,5 +1,6 @@
+import { subparametros } from './../../servicios/parametros-ocp.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Proyecto } from 'src/app/Model/proyecto';
+import { Proyecto, proyectoReal } from 'src/app/Model/proyecto';
 
 @Component({
   selector: 'app-datos-proyecto',
@@ -8,7 +9,9 @@ import { Proyecto } from 'src/app/Model/proyecto';
 })
 export class DatosProyectoComponent implements OnInit {
 
-  @Input() Proyecto: Proyecto;
+  @Input() Proyecto: proyectoReal;
+  @Input() datosProyecto:  subparametros;
+  @Input() listaDatos: string[];
   @Output() DatosEnviados = new EventEmitter<string>();
   CodProyecto = '';
   botonGenerar = { texto: 'Generar', estado: true };
@@ -16,6 +19,10 @@ export class DatosProyectoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  data(){
+    console.log(this.listaDatos);
   }
 
   cambiarProyecto() {

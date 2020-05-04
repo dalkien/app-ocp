@@ -19,10 +19,15 @@ export class ParametrosOcpService {
   }
 
   getSubpram(id:number){
-    return this.service.get("http://localhost:7001/WsOCP-web/webresources/OCPParametros/paramDesc/?id="+id)
+     this.service.get("http://localhost:7001/WsOCP-web/webresources/OCPParametros/paramDesc/?id="+id)
       .subscribe((data) => { this.subParam = data as infSubParam; console.log(data)}, 
         (error) => console.log(error));
         return this.subParam;
+  }
+
+  getSubpramDNF(id:number){
+    return this.service.get("http://localhost:7001/WsOCP-web/webresources/OCPParametros/paramDesc/?id="+id)
+      ;
   }
 
   getLista(){

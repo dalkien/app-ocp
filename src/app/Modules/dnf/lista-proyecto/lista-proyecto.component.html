@@ -6,17 +6,22 @@
       </div>
       <div class="card-body">
         <div class="form-group">
-          <select (change)="datosProyecto(CodProyecto)" [(ngModel)]="CodProyecto" name="tiponovedad"
-            class="form-control form-control-lg" id="tiponovedad">
-            <option value="" disabled>Seleccione</option>
-            <option *ngFor="let p of Proyectos" value="{{p.codigo}}">{{p.nombre}}</option>
-          </select>
+          <select name="tiponovedad"  (change)="datosProyecto(CodProyecto)" [(ngModel)]="CodProyecto"
+          class="form-control " id="tiponovedad">
+          <option value="0" disabled>Seleccione</option>
+          <option *ngFor="let p of paramProyect" 
+            value="{{p.nombre}}">{{p.comentario}}</option>
+        </select>  
         </div>
       </div>
     </div>
   </div>
 </div>
-<app-datos-proyecto (DatosEnviados)="recibirCodProyecto($event)" [Proyecto]="ProyectoSeleccionado"></app-datos-proyecto>
+<app-datos-proyecto (DatosEnviados)="recibirCodProyecto($event)" 
+  [Proyecto]="ProyectoSeleccionado"
+  [datosProyecto]="selParam"
+  [listaDatos]="listaDatos"
+ ></app-datos-proyecto>
 <ng-template #ProyectosNulo>
   <div class="card">
     <div class="card-body text-center">
