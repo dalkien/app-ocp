@@ -39,7 +39,7 @@
           <div class="card" style="height: 100%;">
             <div class="card-body">
               <div class="d-flex justify-content-between">
-                <h5 (mouseover)="data()">
+                <h5 >
                   <span class="badge badge-primary">{{listaDatos[3]}}</span> hasta
                   <span class="badge badge-primary">{{listaDatos[4]}}</span>
                 </h5>
@@ -63,8 +63,195 @@
           </div>
         </div>
       </div>
+      <div id="recursos" *ngIf="asigna">
+        <br>
+        <label for="recurso">Seleccione recurso a asignar</label>
+        <select id="recurso"  class="form-control "
+         (change)="asignaRecurso(adicional)" [(ngModel)]="adicional" >
+          <option value="" disabled>Seleccione</option>
+          <option *ngFor="let item of recursos" value="{{item.codEmpleado}}">{{item.codEmpleado}}</option>
+        </select>
+        <button id="activarRecurso" [(ngModel)]="adicionado" (click)="recursoSel.almacenaRecurso(adicionado)" style="display: none;"></button>
+      </div>
       <div class="d-flex justify-content-end mt-2">
-        <button [disabled]="!botonGenerar.estado" (click)="GenerarDNF()" class="btn btn-primary px-5">{{botonGenerar.texto}}</button>
+        <button [disabled]="!botonGenerar.estado" (click)="addRecurso()" class="btn btn-success ">Adicionar Recurso</button>
+      </div>
+      <app-lista-recursos [recursos]="seleccionado" #recursoSel></app-lista-recursos>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato1">AJUSTES 1 </label>
+            <br>
+            <input type=number id="dato1" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato2">AJUSTES 2 </label>
+            <br>
+            <input type=number id="dato2" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato3">AJUSTES 3 </label>
+            <br>
+            <input type=number id="dato3" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato4">INGRESO x MES</label>
+            <br>
+            <input type=number id="dato4" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato5">OTROS INGRESOS OPERATIVOS</label>
+            <br>
+            <input type=number id="dato5" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato6">PRESTACION DE SERVICIOS / CONSULTORIA 1 </label>
+            <br>
+            <input type=number id="dato6" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato7">PRESTACION DE SERVICIOS / CONSULTORIA 2 </label>
+            <br>
+            <input type=number id="dato7" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato8">PRESTACION DE SERVICIOS / CONSULTORIA 3 </label>
+            <br>
+            <input type=number id="dato8" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato9">EQUIPOS </label>
+            <br>
+            <input type=number id="dato9" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato10">COSTO ADICIONAL DE EQUIPOS</label>
+            <br>
+            <input type=number id="dato10" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato11">DATACENTER </label>
+            <br>
+            <input type=number id="dato11" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato12">CAJA MENOR </label>
+            <br>
+            <input type=number id="dato12" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato13">CELULARES </label>
+            <br>
+            <input type=number id="dato13" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato14">PROVISIÓN DE INDEMNIZACIÓN </label>
+            <br>
+            <input type=number id="dato14" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato15">ICA </label>
+            <br>
+            <input type=number id="dato15" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato16">LICENCIAS /SOFTWARE </label>
+            <br>
+            <input type=number id="dato16" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato17">CAPACITACIONES</label>
+            <br>
+            <input type=number id="dato17" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato18">VIATICOS 1 </label>
+            <br>
+            <input type=number id="dato18" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato19">VIATICOS 2 </label>
+            <br>
+            <input type=number id="dato19" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato20">EXAMEN MEDICO </label>
+            <br>
+            <input type=number id="dato20" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato21">BONOS GTES </label>
+            <br>
+            <input type=number id="dato21" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato22">OTROS COSTOS 1</label>
+            <br>
+            <input type=number id="dato22" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato23">OTROS COSTOS 2</label>
+            <br>
+            <input type=number id="dato23" >
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="dato124">OTROS COSTOS 3</label>
+            <br>
+            <input type=number id="dato24" >
+        </div>
+    </div>
+  </div>
+      <div class="d-flex justify-content-end mt-2">
+        <button [disabled]="!botonGenerar.estado" 
+         (click)="GenerarDNF()" class="btn btn-primary px-5 ">{{botonGenerar.texto}}</button>
+         <button [disabled]="!botonGenerar.estado" 
+         (click)="GenerarDNF()" class="btn btn-primary px-5">Calcular</button>
       </div>
     </div>
   </div>

@@ -16,6 +16,10 @@ export class OcpEmpleadosService {
       return this.employeds;
   }
 
+  getAllEmployedsDNF(){
+    return this.servEmpleados.get('http://localhost:7001/WsOCP-web/webresources/OCP/getAllEmployed');
+  }
+
   editEmployed(empleadoMod: EmpleadoReal){
     let rta : GenericResponse ; 
     this.servEmpleados.put('http://localhost:7001/WsOCP-web/webresources/OCP/editEmpleado', empleadoMod)

@@ -1,3 +1,7 @@
+import { ExcelService } from './../../servicios/excel.service';
+
+import { GetEmpleados, EmpleadoReal } from 'src/app/Model/empleado';
+import { OcpEmpleadosService } from './../../servicios/ocp-empleados.service';
 import { subparametros } from './../../servicios/parametros-ocp.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Proyecto, proyectoReal } from 'src/app/Model/proyecto';
@@ -13,16 +17,42 @@ export class DatosProyectoComponent implements OnInit {
   @Input() datosProyecto:  subparametros;
   @Input() listaDatos: string[];
   @Output() DatosEnviados = new EventEmitter<string>();
+  allRecursos: GetEmpleados; 
+  asigna:boolean = false;
+  recursos: EmpleadoReal[]; 
+  seleccionado: EmpleadoReal[] = [];
+  adicional: number;
+  adicionado: EmpleadoReal;
   CodProyecto = '';
   botonGenerar = { texto: 'Generar', estado: true };
 
-  constructor() { }
+  constructor( private emplServ: OcpEmpleadosService, private excelService: ExcelService) { }
 
   ngOnInit() {
+    this.emplServ.getAllEmployedsDNF()
+    .subscribe((data) => {this.allRecursos = data as GetEmpleados;
+      this.recursos = this.allRecursos.empleados;
+    })
   }
 
   data(){
     console.log(this.listaDatos);
+  }
+
+  addRecurso(){
+    this.asigna = true;
+  }
+
+  asignaRecurso(r: string){
+    let rec : EmpleadoReal = this.recursos.find((x) => x.codEmpleado === parseInt(r));
+    this.adicionado = rec; 
+    this.seleccionado.push(rec);
+    //console.log(JSON.stringify(this.adicionado)) ;
+    this.asigna = false;
+    if(this.seleccionado.length > 0){
+      this.botonGenerar.estado = true;
+    }
+    document.getElementById("activarRecurso").click();
   }
 
   cambiarProyecto() {
@@ -36,6 +66,7 @@ export class DatosProyectoComponent implements OnInit {
   GenerarDNF() {
     this.botonGenerar.texto = 'Generando...';
     this.botonGenerar.estado = false;
+    this.excelService.exportAsExcelFile(this.recursos, 'sample');
   }
 
 }

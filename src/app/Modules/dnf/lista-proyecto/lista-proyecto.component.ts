@@ -42,7 +42,6 @@ export class ListaProyectoComponent implements OnInit {
      this.ProyectoSeleccionado = this.Proyectos.find(
        proyecto => proyecto.codProyecto === parseInt(codigo) 
      );
-     debugger;
      this.nameProy(parseInt(codigo));
   }
 

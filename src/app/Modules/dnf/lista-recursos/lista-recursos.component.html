@@ -1,0 +1,78 @@
+  <div class="d-flex justify-content-between mb-4">
+    <h5 class="font-weight-bold">Listado de Recursos.</h5>
+  </div>
+  <div class="table-responsive text-center">
+    <table class="table table-hover table-bordered table-sm">
+      <thead class="cabecera-tabla">
+        <tr>
+          <th scope="col">Perfil</th>
+          <th scope="col">tipo de contrato</th>
+          <th scope="col">Codígo</th>
+          <th scope="col">Nombres </th>
+          <th scope="col">Ubicacion </th>
+          <th scope="col">Equipo</th>
+          <th scope="col">Tarifa x Perfil</th>
+          <th scope="col">Ingreso Horas</th>
+          <th scope="col">Ingreso</th>
+          <th scope="col">Costo Horas</th>
+          <th scope="col">Asignacion</th>
+          <th scope="col">Días de Vacaciones</th>
+
+          <th scope="col">Días de Licencia / Incapcacidad</th>
+          <th scope="col">Horas permiso</th>
+          <th scope="col">Bonos </th>
+          <th scope="col">HRS Extras</th>
+          <th scope="col">Costo RRHH</th>
+          <th scope="col">Otros Costo</th>
+          <th scope="col">Observaciones</th>
+          <th scope="col">Observaciones Nomina</th>
+
+        </tr>
+      </thead>
+      <tbody >
+        <tr *ngFor="let e of recursos">
+          <td>{{e.rol}}</td>
+          <td>{{e.tipoContrato}}</td>
+          <td>{{e.codEmpleado}}</td>
+          <td>{{e.nombres}}</td>
+          <td> <input type="text" [(ngModel)]="ubicacion" >  </td>
+          <td>{{e.equipo}}</td>
+          <td><input type="number" [(ngModel)]="tarifaXper" ></td>
+          <td><input type="number" [(ngModel)]="ingHoras" ></td>
+          <td>{{tarifaXper * ingHoras}} </td>
+          <td><input type="number" [(ngModel)]="costHoras" ></td>
+          <td>{{(costHoras/180) * 100 }} %</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>{{totalHR}}</td>
+          <td><input type="number" [(ngModel)]="otrosCost" ></td>
+          <td>{{e.observaciones}}</td>
+          <td>{{otrasObserv}}</td>
+        </tr>
+        <tr>
+          <th colspan="4" scope="col-4">Total HHRR </th>
+          <th scope="col"></th>
+          <th scope="col">{{totEquipo}}</th>
+          <th scope="col"></th>
+          <th scope="col">{{totHorIng}}</th>
+          <th scope="col">{{totIngr}}</th>
+          <th scope="col">{{totCosHor}}</th>
+          <th scope="col"></th>
+          <th  scope="col"></th>
+
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col">{{totBonos}}</th>
+          <th scope="col">{{totHE}}</th>
+          <th scope="col">{{totHHRR}}</th>
+          <th scope="col">{{totCosOtros}}</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
